@@ -1,7 +1,7 @@
 <%@ page language="java" import="cs5530.*" %>
 <html>
 <head>
-
+// comment
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login to Doug E Fresh Bookstore!</title>
 </head>
