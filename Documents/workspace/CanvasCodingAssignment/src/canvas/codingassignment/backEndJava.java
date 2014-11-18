@@ -38,8 +38,22 @@ public class backEndJava
 			rd.close();
 			conn.disconnect();
 			result = sb.toString();
-			
+			JSONArray arr = new JSONArray(result);
+			nr = "<table style =\"width:100%\">\n";
+			for(int i = 0; i < arr.length(); i++)
+			{
+				nr += "<tr>\n";
+				JSONObject job = arr.getJSONObject(i);
+				nr += "<td>" + job.getString("name") + "</td>\n";
+				nr += "<td>" + job.getString("code") + "</td>\n";
+				nr += "</tr>\n";
 			}
+			nr += "</table>";
+			}
+		catch(JSONException e)
+		{
+			System.err.println(e.toString());
+		}
 		catch(MalformedURLException e)
 		{
 			System.err.println(e.toString());
