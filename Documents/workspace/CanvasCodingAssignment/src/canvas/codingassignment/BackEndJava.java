@@ -8,12 +8,12 @@ import java.net.URL;
 import org.json.*;
 
 
-public class backEndJava 
+public class BackEndJava 
 {
 	String authorizationToken = "9be624b4d5206a178fc56921d5bf2c2a";
 	String courseAPIURL = "http://canvas-api.herokuapp.com/api/v1/courses";
 	
-	public backEndJava()
+	public BackEndJava()
 	{
 		
 	}
@@ -143,14 +143,92 @@ public class backEndJava
 //			nr = result;
 			return nr;
 	}
-	public static void main(String[] args)
+	
+	public String getResultFromAPI()
 	{
-		String temp = getJSON();
-		System.out.println(temp + "\n\n\n");
-		
-		System.out.println(getCourse("2"));
-		
+		String result = "";
+		String nr = "";
+		try {
+			URL courseURL = new URL("http://canvas-api.herokuapp.com/api/v1/courses?access_token=9be624b4d5206a178fc56921d5bf2c2a");
+			HttpURLConnection conn = (HttpURLConnection) courseURL.openConnection();
+//			if (conn.getResponseCode() != 200)
+//			{
+//				System.err.println("ERROR");
+//				throw new IOException(conn.getResponseMessage());
+//			}
+			
+			BufferedReader rd = new BufferedReader( new InputStreamReader(conn.getInputStream()));
+			StringBuilder sb = new StringBuilder();
+			String line;
+			while((line = rd.readLine()) != null)
+			{
+				sb.append(line);
+			}
+			rd.close();
+			conn.disconnect();
+			result = sb.toString();
+		}
+			catch(MalformedURLException e)
+			{
+				System.err.println(e.toString());
+			}
+			catch(IOException e)
+			{
+				System.err.println(e.toString());
+			}
+			nr = result;
+			return nr;
 	}
+	
+	public static Boolean checkURL(String URL)
+	{
+		boolean result = true;
+		try
+		{
+		URL courseURL = new URL(URL);
+		}
+		catch(MalformedURLException e)
+		{
+		result = false;
+		}
+		return result;
+	}
+	
+	public static Boolean checkForToken(String URL)
+	{
+		boolean result = true;
+		if(!URL.contains("access_token"))
+			return false;
+		return true;
+	}
+	
+	public static boolean checkConnection(String URL)
+	{
+		if(!checkURL(URL))
+			return false;
+		if(!checkForToken(URL))
+			return false;
+		try
+		{
+		URL courseURL = new URL(URL);
+		
+		HttpURLConnection conn = (HttpURLConnection) courseURL.openConnection();
+		
+		}
+		catch (IOException e)
+		{ return false; }
+		
+		return true;
+	}
+	
+//	public static void main(String[] args)
+//	{
+//		String temp = getJSON();
+//		System.out.println(temp + "\n\n\n");
+//		
+//		System.out.println(getCourse("2"));
+//		
+//	}
 	
 	
 }
