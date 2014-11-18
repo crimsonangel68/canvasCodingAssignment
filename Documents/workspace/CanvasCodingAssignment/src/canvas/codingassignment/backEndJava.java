@@ -4,6 +4,8 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import org.json.*;
+
 
 public class backEndJava 
 {
@@ -19,6 +21,7 @@ public class backEndJava
 	{
 		
 		String result = "";
+		String nr = "";
 		try {
 			URL courseURL = new URL("http://canvas-api.herokuapp.com/api/v1/courses?access_token=9be624b4d5206a178fc56921d5bf2c2a");
 			HttpURLConnection conn = (HttpURLConnection) courseURL.openConnection();
@@ -62,7 +65,8 @@ public class backEndJava
 		{
 			System.err.println(e.toString());
 		}
-		return result;
+//		nr = result;
+		return nr;
 		
 	}
 	
